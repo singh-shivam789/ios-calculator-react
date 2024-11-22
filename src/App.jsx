@@ -21,13 +21,13 @@ function App() {
         }
         if (isDecimal) {
           if ((operand + "." + deciOperand).length < 10) {
-            setDeciOperand((prev) => (prev * 10) + parseInt(clicked[1]['value']));
+            setDeciOperand((prev) => (prev * 10) + parseFloat(clicked[1]['value']));
             setDeciInput(operand.toString() + "." + deciOperand.toString())
           }
         }
         else {
           if (operand.toString().length < 10) {
-            setOperand((prev) => (prev * 10) + parseInt(clicked[1]['value']));
+            setOperand((prev) => (prev * 10) + parseFloat(clicked[1]['value']));
           }
         }
       }
@@ -42,7 +42,7 @@ function App() {
       }
       else if (clicked[1]['fn'] === "negate") {
         if (result[0]) setResult((prev) => [true, -prev[1]]);
-        if(isDecimal){
+        if (isDecimal) {
           setDeciInput(prev => parseFloat(`-${prev}`))
         }
         setOperand((prev) => -prev);
@@ -53,7 +53,7 @@ function App() {
       }
       else if (clicked[1]['fn'] === "decimal") {
         setIsDecimal(true);
-        setDeciInput(operand.toString() + "." + deciOperand.toString())
+        setDeciInput(operand + "." + deciOperand)
       }
       else if (clicked[1]['fn'] === "operator") {
         setOperator(clicked[1]['value']);
@@ -65,18 +65,18 @@ function App() {
       else if (clicked[1]['fn'] === 'result') {
         if (save !== null) {
           if (operator === '+') {
-            setResult([true, operand + save]);
+            setResult([true, parseFloat(operand + save)]);
           }
           else if (operator === '-') {
-            setResult([true, save - operand]);
+            setResult([true, parseFloat(save - operand)]);
 
           }
           else if (operator === 'X') {
-            setResult([true, operand * save]);
+            setResult([true, parseFloat(operand * save)]);
 
           }
           else {
-            setResult([true, save / operand]);
+            setResult([true, parseFloat(save / operand)]);
           }
 
           setOperator(null);
